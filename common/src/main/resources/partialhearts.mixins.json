@@ -1,0 +1,18 @@
+{
+  "required": true,
+  "package": "net.dialingspoon.partialhearts.mixin",
+  "compatibilityLevel": "JAVA_21",
+  "minVersion": "0.8",
+  "client": [
+    "ColoredHeartsSupplierMixin",
+    "ColorfulHeartRendererMixin",
+    "ColorfulHeartUtilsMixin",
+    "ColorfulSpriteHeartDrawingMixin",
+    "GuiMixin",
+    "HeartAccessor",
+    "ScreenAccessor"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}
