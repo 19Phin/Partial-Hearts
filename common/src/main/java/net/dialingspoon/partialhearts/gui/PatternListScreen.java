@@ -15,6 +15,7 @@ import net.minecraft.client.gui.components.events.GuiEventListener;
 import net.minecraft.client.gui.narration.NarratableEntry;
 import net.minecraft.client.gui.narration.NarrationElementOutput;
 import net.minecraft.client.gui.screens.Screen;
+import net.minecraft.client.renderer.RenderType;
 import net.minecraft.network.chat.CommonComponents;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
@@ -48,7 +49,7 @@ public class PatternListScreen extends Screen {
                 .size(60, 20)
                 .build();
 
-        Button doneButton = Button.builder(Component.translatable("gui.done"), b -> onSaveAndClose())
+        Button doneButton = Button.builder(Component.translatable("gui.done"), b -> onClose())
                 .pos(this.width / 2 + 40, buttonY)
                 .size(60, 20)
                 .build();
@@ -75,10 +76,10 @@ public class PatternListScreen extends Screen {
         return result;
     }
 
-    private void onSaveAndClose() {
+    @Override
+    public void onClose() {
         PatternManager.savePatterns(patterns, selectedPatternName, patterns.get(selectedPatternName));
-
-        this.minecraft.setScreen(this.parent);
+        this.minecraft.setScreen(null);
     }
 
     public void onPatternSaved(String oldName, String newName, int[] newData) {
@@ -308,7 +309,7 @@ public class PatternListScreen extends Screen {
         @Override
         protected void renderWidget(GuiGraphics guiGraphics, int i, int j, float f) {
             RenderSystem.disableDepthTest();
-            guiGraphics.blitSprite(this.sprites.get(patternList.getSelected() == parent, this.isHovered), this.getX(), this.getY(), this.width, this.height);
+            guiGraphics.blitSprite(RenderType::guiTextured, this.sprites.get(patternList.getSelected() == parent, this.isHovered), this.getX(), this.getY(), this.width, this.height);
             RenderSystem.enableDepthTest();
         }
 

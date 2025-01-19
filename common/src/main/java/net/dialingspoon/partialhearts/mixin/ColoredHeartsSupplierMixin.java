@@ -13,19 +13,13 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
-import java.io.IOException;
-
 @Mixin(targets = "terrails.colorfulhearts.render.atlas.sources.ColoredHearts$ColoredHeartsSupplier", remap = false)
 public abstract class ColoredHeartsSupplierMixin {
     @Shadow @Final private ResourceLocation spriteLocation;
 
     @Inject(method = "apply(Lnet/minecraft/client/renderer/texture/atlas/SpriteResourceLoader;)Lnet/minecraft/client/renderer/texture/SpriteContents;", at = @At(value = "RETURN", ordinal = 0))
     private void captureSprites(SpriteResourceLoader spriteResourceLoader, CallbackInfoReturnable<SpriteContents> cir, @Local(name = "image") NativeImage image) {
-        try {
-            PartialHearts.CAPTURED_SPRITES.put(spriteLocation, image.asByteArray());
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+        PartialHearts.CAPTURED_SPRITES.put(spriteLocation, image.getPixels());
     }
 
 }

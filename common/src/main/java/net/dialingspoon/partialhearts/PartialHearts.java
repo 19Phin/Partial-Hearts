@@ -8,5 +8,5 @@ import java.util.Map;
 public final class PartialHearts {
     public static final String MOD_ID = "partialhearts";
 
-    public static final Map<ResourceLocation, byte[]> CAPTURED_SPRITES = new HashMap<>();
+    public static final Map<ResourceLocation, int[]> CAPTURED_SPRITES = new HashMap<>();
 }
