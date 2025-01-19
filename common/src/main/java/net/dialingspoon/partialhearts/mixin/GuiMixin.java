@@ -2,7 +2,7 @@ package net.dialingspoon.partialhearts.mixin;
 
 import com.mojang.blaze3d.platform.NativeImage;
 import net.dialingspoon.partialhearts.PartialHearts;
-import net.dialingspoon.partialhearts.gui.PatternManager;
+import net.dialingspoon.partialhearts.PatternManager;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Gui;
 import net.minecraft.client.gui.GuiGraphics;

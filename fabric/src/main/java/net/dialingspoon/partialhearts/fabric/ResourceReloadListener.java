@@ -1,7 +1,7 @@
 package net.dialingspoon.partialhearts.fabric;
 
 import net.dialingspoon.partialhearts.PartialHearts;
-import net.dialingspoon.partialhearts.gui.PatternManager;
+import net.dialingspoon.partialhearts.PatternManager;
 import net.fabricmc.fabric.api.resource.SimpleResourceReloadListener;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.packs.resources.ResourceManager;

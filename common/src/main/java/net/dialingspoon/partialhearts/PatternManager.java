@@ -1,9 +1,8 @@
-package net.dialingspoon.partialhearts.gui;
+package net.dialingspoon.partialhearts;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.mojang.blaze3d.platform.NativeImage;
-import net.dialingspoon.partialhearts.PartialHearts;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.renderer.texture.DynamicTexture;
@@ -23,10 +22,6 @@ public class PatternManager {
     private static final Gson GSON = new GsonBuilder()
             .setPrettyPrinting()
             .create();
-
-    static {
-        loadPatterns();
-    }
 
     public static String getSelectedPatternName() {
         return selectedPatternName;
@@ -71,6 +66,10 @@ public class PatternManager {
             }
         }
         selectedPattern = patterns.get(selectedPatternName);
+        for (int[] pattern : patterns.values())
+            System.out.println(Arrays.toString(pattern));
+        System.out.println(selectedPatternName);
+        System.out.println(Arrays.toString(createOriginalPattern()));
 
         return patterns;
     }
@@ -210,6 +209,8 @@ public class PatternManager {
                 e.printStackTrace();
             }
         }
+
+        loadPatterns();
     }
 
     public record PatternsConfig(Map<String, int[]> patterns, String selectedPattern) {}

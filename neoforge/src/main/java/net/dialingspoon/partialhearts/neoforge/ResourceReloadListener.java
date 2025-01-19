@@ -1,6 +1,6 @@
 package net.dialingspoon.partialhearts.neoforge;
 
-import net.dialingspoon.partialhearts.gui.PatternManager;
+import net.dialingspoon.partialhearts.PatternManager;
 import net.minecraft.server.packs.resources.ResourceManager;
 import net.minecraft.server.packs.resources.ResourceManagerReloadListener;
 
