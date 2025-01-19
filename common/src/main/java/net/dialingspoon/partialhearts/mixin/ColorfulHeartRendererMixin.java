@@ -37,11 +37,11 @@ public abstract class ColorfulHeartRendererMixin {
 
                 boolean highlight = heartInstance.isContainer() ? highlightContainer : highlightHeart;
 
-                NativeImage heartImage = NativeImage.read(PartialHearts.CAPTURED_SPRITES.get(((IColorfulHeartRenderer) ((HeartAccessor) heartInstance).getDrawing()).getTexture(hardcore, highlight)));
+                NativeImage heartImage = PatternManager.loadImageFromArray(PartialHearts.CAPTURED_SPRITES.get(((IColorfulHeartRenderer) ((HeartAccessor) heartInstance).getDrawing()).getTexture(hardcore, highlight)));
                 if (index == lastHeart) {
-                    PatternManager.renderHearts(heartImage, guiGraphics, player.getHealth(), heartX, heartY);
+                    PatternManager.renderHeart(heartImage, guiGraphics, player.getHealth(), heartX, heartY);
                 } else {
-                    PatternManager.renderHearts(heartImage, guiGraphics, player.getAbsorptionAmount(), heartX, heartY);
+                    PatternManager.renderHeart(heartImage, guiGraphics, player.getAbsorptionAmount(), heartX, heartY);
                 }
 
             } catch (IOException e) {

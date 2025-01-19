@@ -48,7 +48,7 @@ public class PatternListScreen extends Screen {
                 .size(60, 20)
                 .build();
 
-        Button doneButton = Button.builder(Component.translatable("gui.done"), b -> onSaveAndClose())
+        Button doneButton = Button.builder(Component.translatable("gui.done"), b -> onClose())
                 .pos(this.width / 2 + 40, buttonY)
                 .size(60, 20)
                 .build();
@@ -75,10 +75,10 @@ public class PatternListScreen extends Screen {
         return result;
     }
 
-    private void onSaveAndClose() {
+    @Override
+    public void onClose() {
         PatternManager.savePatterns(patterns, selectedPatternName, patterns.get(selectedPatternName));
-
-        this.minecraft.setScreen(this.parent);
+        this.minecraft.setScreen(null);
     }
 
     public void onPatternSaved(String oldName, String newName, int[] newData) {

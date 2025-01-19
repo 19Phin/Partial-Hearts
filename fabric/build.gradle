@@ -47,7 +47,6 @@ dependencies {
     api(include("com.electronwill.night-config:toml:${nightconfig_version}"))
 
     modImplementation "curse.maven:colorful-hearts-854213:${rootProject.colorfulhearts_fabric}"
-    modImplementation "curse.maven:colorful-hearts-854213:${rootProject.colorfulhearts_fabric}"
 
     modImplementation("com.terraformersmc:modmenu:${project.modmenu_version}")
 }

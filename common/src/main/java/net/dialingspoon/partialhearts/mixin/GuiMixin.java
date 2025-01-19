@@ -15,8 +15,6 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.Redirect;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-import java.io.IOException;
-
 @Mixin(Gui.class)
 public abstract class GuiMixin {
     @Shadow
@@ -34,7 +32,7 @@ public abstract class GuiMixin {
 
         if (partialhearts$aborptionFirst) {
             partialhearts$aborptionFirst = false;
-            PatternManager.renderHearts(getImage(heartType, hardcore, blinking), guiGraphics, absorptionAmount, heartX, heartY);
+            PatternManager.renderHeart(getImage(heartType, hardcore, blinking), guiGraphics, absorptionAmount, heartX, heartY);
         } else {
             renderHeart(guiGraphics, heartType, heartX, heartY, hardcore, blinking, false);
         }
@@ -45,7 +43,7 @@ public abstract class GuiMixin {
 
         if (partialhearts$first) {
             partialhearts$first = false;
-            PatternManager.renderHearts(getImage(heartType, hardcore, blinking), guiGraphics, healthAmount, heartX, heartY);
+            PatternManager.renderHeart(getImage(heartType, hardcore, blinking), guiGraphics, healthAmount, heartX, heartY);
         } else {
             renderHeart(guiGraphics, heartType, heartX, heartY, hardcore, blinking, false);
         }
@@ -56,7 +54,7 @@ public abstract class GuiMixin {
 
         if (partialhearts$first) {
             partialhearts$first = false;
-            PatternManager.renderHearts(getImage(heartType, hardcore, blinking), guiGraphics, healthAmount, heartX, heartY);
+            PatternManager.renderHeart(getImage(heartType, hardcore, blinking), guiGraphics, healthAmount, heartX, heartY);
         } else {
             renderHeart(guiGraphics, heartType, heartX, heartY, hardcore, blinking, false);
         }
@@ -64,12 +62,7 @@ public abstract class GuiMixin {
 
     @Unique
     private NativeImage getImage(Gui.HeartType heartType, boolean hardcore, boolean blinking) {
-        try {
-            return NativeImage.read(PartialHearts.CAPTURED_SPRITES.get(heartType.getSprite(hardcore, false, blinking)));
-        } catch (IOException e) {
-            e.printStackTrace();
-            return null;
-        }
+        return PatternManager.loadImageFromArray(PartialHearts.CAPTURED_SPRITES.get(heartType.getSprite(hardcore, false, blinking)));
     }
 
     @Inject(method = "renderHearts", at = @At("TAIL"))

@@ -66,106 +66,75 @@ public class PatternManager {
             }
         }
         selectedPattern = patterns.get(selectedPatternName);
-        for (int[] pattern : patterns.values())
-            System.out.println(Arrays.toString(pattern));
-        System.out.println(selectedPatternName);
-        System.out.println(Arrays.toString(createOriginalPattern()));
 
         return patterns;
     }
 
     public static int[] createOriginalPattern() {
-        int[] resultArray = new int[81];
-        Arrays.fill(resultArray, 0);
+        int[] resultArray = getUsedPixels();
 
-        try {
-            for (byte[] spriteData : PartialHearts.CAPTURED_SPRITES.values()) {
-                NativeImage image = NativeImage.read(spriteData);
-
-                for (int i = 0; i < 81; i++) {
-                    int x = i % 9;
-                    int y = i / 9;
-                    int pixel = image.getPixelRGBA(x, y);
-                    int alpha = (pixel >> 24) & 0xFF;
-
-                    if (alpha != 0) {
-                        resultArray[i] = -1;
-                    }
-                }
-
-                image.close();
-            }
-
-            int value = 1;
-            for (int col = 8; col >= 0; col--) {
-                for (int row = 0; row < 9; row++) {
-                    int index = row * 9 + col;
-                    if (resultArray[index] == -1) {
-                        resultArray[index] = value++;
-                    }
+        int value = 1;
+        for (int col = 8; col >= 0; col--) {
+            for (int row = 0; row < 9; row++) {
+                int index = row * 9 + col;
+                if (resultArray[index] == -1) {
+                    resultArray[index] = value++;
                 }
             }
-
-            return resultArray;
-
-        } catch (IOException e) {
-            e.printStackTrace();
-            return new int[81];
         }
+
+        return resultArray;
     }
 
 
     public static int[] createRandomPattern() {
-        int[] resultArray = new int[81];
-        Arrays.fill(resultArray, 0);
+        int[] resultArray = getUsedPixels();
 
-        try {
-            for (byte[] spriteData : PartialHearts.CAPTURED_SPRITES.values()) {
-                NativeImage image = NativeImage.read(spriteData);
+        long visibleCount = Arrays.stream(resultArray)
+                .filter(value -> value == -1)
+                .count();
 
-                for (int i = 0; i < 81; i++) {
-                    int x = i % 9;
-                    int y = i / 9;
-                    int pixel = image.getPixelRGBA(x, y);
-                    int alpha = (pixel >> 24) & 0xFF;
-
-                    if (alpha != 0) {
-                        resultArray[i] = -1;
-                    }
-                }
-
-                image.close();
-            }
-
-            long visibleCount = Arrays.stream(resultArray)
-                    .filter(value -> value == -1)
-                    .count();
-
-            List<Integer> randomValues = new ArrayList<>();
-            for (int i = 1; i <= visibleCount; i++) {
-                randomValues.add(i);
-            }
-            Collections.shuffle(randomValues);
-
-            int randomIndex = 0;
-            for (int col = 8; col >= 0; col--) {
-                for (int row = 0; row < 9; row++) {
-                    int index = row * 9 + col;
-                    if (resultArray[index] == -1) {
-                        resultArray[index] = randomValues.get(randomIndex++);
-                    }
-                }
-            }
-
-            return resultArray;
-
-        } catch (IOException e) {
-            e.printStackTrace();
-            return new int[81];
+        List<Integer> randomValues = new ArrayList<>();
+        for (int i = 1; i <= visibleCount; i++) {
+            randomValues.add(i);
         }
+        Collections.shuffle(randomValues);
+
+        int randomIndex = 0;
+        for (int col = 8; col >= 0; col--) {
+            for (int row = 0; row < 9; row++) {
+                int index = row * 9 + col;
+                if (resultArray[index] == -1) {
+                    resultArray[index] = randomValues.get(randomIndex++);
+                }
+            }
+        }
+
+        return resultArray;
     }
 
-    public static void renderHearts(NativeImage heartImage, GuiGraphics guiGraphics, float health, int heartX, int heartY) {
+    public static int[] getUsedPixels() {
+        int[] usedArray = new int[81];
+        Arrays.fill(usedArray, 0);
+        for (int[] spriteData : PartialHearts.CAPTURED_SPRITES.values()) {
+            NativeImage image = PatternManager.loadImageFromArray(spriteData);
+
+            for (int i = 0; i < 81; i++) {
+                int x = i % 9;
+                int y = i / 9;
+                int pixel = image.getPixelRGBA(x, y);
+                int alpha = (pixel >> 24) & 0xFF;
+
+                if (alpha != 0) {
+                    usedArray[i] = -1;
+                }
+            }
+            image.close();
+        }
+        return usedArray;
+    }
+
+    public static void renderHeart(NativeImage heartImage, GuiGraphics guiGraphics, float health, int heartX, int heartY) {
         int[] pixelOrder = selectedPattern;
 
         long usedIndicesCount = Arrays.stream(pixelOrder)
@@ -185,7 +154,8 @@ public class PatternManager {
         }
 
         DynamicTexture dynamicTexture = new DynamicTexture(heartImage);
-        ResourceLocation textureLocation = Minecraft.getInstance().getTextureManager().register("dynamic_heart_texture", dynamicTexture);
+        ResourceLocation textureLocation = ResourceLocation.fromNamespaceAndPath(PartialHearts.MOD_ID, "dynamic_heart_texture");
+        Minecraft.getInstance().getTextureManager().register(textureLocation, dynamicTexture);
         guiGraphics.blit(textureLocation, heartX, heartY, 9, 9, 0, 0, 9, 9, 9, 9);
 
         heartImage.close();
@@ -203,7 +173,10 @@ public class PatternManager {
             ResourceLocation resourceLocation = ResourceLocation.fromNamespaceAndPath(original.getNamespace(), cleanPath);
 
             try (InputStream inputStream = resource.open()) {
-                byte[] spriteData = inputStream.readAllBytes();
+                NativeImage image = NativeImage.read(inputStream);
+                int[] spriteData = image.getPixelsRGBA();
+                image.close();
+
                 PartialHearts.CAPTURED_SPRITES.put(resourceLocation, spriteData);
             } catch (IOException e) {
                 e.printStackTrace();
@@ -211,6 +184,16 @@ public class PatternManager {
         }
 
         loadPatterns();
+    }
+
+    public static NativeImage loadImageFromArray(int[] data) {
+        NativeImage loadedImage = new NativeImage(9, 9, false);
+        for (int i = 0; i < data.length; i++) {
+            int x = i % 9;
+            int y = i / 9;
+            loadedImage.setPixelRGBA(x, y, data[i]);
+        }
+        return loadedImage;
     }
 
     public record PatternsConfig(Map<String, int[]> patterns, String selectedPattern) {}
