@@ -288,10 +288,10 @@ public class PatternListScreen extends Screen {
 
     public class CheckButton extends AbstractWidget {
         private final WidgetSprites sprites = new WidgetSprites(
-                ResourceLocation.withDefaultNamespace("widget/checkbox_selected"),
-                ResourceLocation.withDefaultNamespace("widget/checkbox"),
-                ResourceLocation.withDefaultNamespace("widget/checkbox_selected_highlighted"),
-                ResourceLocation.withDefaultNamespace("widget/checkbox_highlighted")
+                new ResourceLocation("widget/checkbox_selected"),
+                new ResourceLocation("widget/checkbox"),
+                new ResourceLocation("widget/checkbox_selected_highlighted"),
+                new ResourceLocation("widget/checkbox_highlighted")
         );
         private final PatternEntry parent;
 

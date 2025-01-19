@@ -1,5 +1,5 @@
 modLoader = "javafml"
-loaderVersion = "[4,)"
+loaderVersion = "[3,)"
 issueTrackerURL = "https://github.com/19Phin/Grafted-Creaking/issues"
 license = "MIT"
 
@@ -16,14 +16,14 @@ logoFile = "assets/partialhearts/icon.png"
 [[dependencies.partialhearts]]
 modId = "neoforge"
 type = "required"
-versionRange = "(20.6,21.2)"
+versionRange = "(20.5,21.0)"
 ordering = "NONE"
 side = "BOTH"
 
 [[dependencies.partialhearts]]
 modId = "minecraft"
 type = "required"
-versionRange = "(1.20.6,1.21.2)"
+versionRange = "(1.20.5,1.21.0)"
 ordering = "NONE"
 side = "BOTH"
 

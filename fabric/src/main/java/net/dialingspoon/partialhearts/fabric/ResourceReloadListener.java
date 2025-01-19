@@ -13,7 +13,7 @@ import java.util.concurrent.Executor;
 public class ResourceReloadListener implements SimpleResourceReloadListener<Void> {
     @Override
     public ResourceLocation getFabricId() {
-        return ResourceLocation.fromNamespaceAndPath(PartialHearts.MOD_ID, "reload_listener");
+        return new ResourceLocation(PartialHearts.MOD_ID, "reload_listener");
     }
 
     @Override

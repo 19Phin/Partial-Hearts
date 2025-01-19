@@ -154,7 +154,7 @@ public class PatternManager {
         }
 
         DynamicTexture dynamicTexture = new DynamicTexture(heartImage);
-        ResourceLocation textureLocation = ResourceLocation.fromNamespaceAndPath(PartialHearts.MOD_ID, "dynamic_heart_texture");
+        ResourceLocation textureLocation = new ResourceLocation(PartialHearts.MOD_ID, "dynamic_heart_texture");
         Minecraft.getInstance().getTextureManager().register(textureLocation, dynamicTexture);
         guiGraphics.blit(textureLocation, heartX, heartY, 9, 9, 0, 0, 9, 9, 9, 9);
 
@@ -170,7 +170,7 @@ public class PatternManager {
 
             String path = original.getPath();
             String cleanPath = path.substring("textures/gui/sprites/".length(), path.length() - ".png".length());
-            ResourceLocation resourceLocation = ResourceLocation.fromNamespaceAndPath(original.getNamespace(), cleanPath);
+            ResourceLocation resourceLocation = new ResourceLocation(original.getNamespace(), cleanPath);
 
             try (InputStream inputStream = resource.open()) {
                 NativeImage image = NativeImage.read(inputStream);

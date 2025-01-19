@@ -55,7 +55,7 @@ public class PatternEditScreen extends Screen {
         topOffset = 50;
         leftOffset = (this.width - (GRID_SIZE * BUTTON_SIZE)) / 2;
 
-        ImageWidget infoSprite = ImageWidget.sprite(5, 5, ResourceLocation.fromNamespaceAndPath(PartialHearts.MOD_ID, "info"));
+        ImageWidget infoSprite = ImageWidget.sprite(5, 5, new ResourceLocation(PartialHearts.MOD_ID, "info"));
         infoSprite.setPosition((font.width(title) + width) / 2 + 2, 2);
         infoSprite.setTooltip(Tooltip.create(Component.translatable("pattern_edit_screen.info")));
         this.addRenderableWidget(infoSprite);
@@ -64,10 +64,10 @@ public class PatternEditScreen extends Screen {
         this.nameField.setMaxLength(100);
         this.addRenderableWidget(this.nameField);
 
-        WidgetSprites sprites = new WidgetSprites(ResourceLocation.fromNamespaceAndPath(PartialHearts.MOD_ID, "scroll_left"), ResourceLocation.fromNamespaceAndPath(PartialHearts.MOD_ID, "scroll_left_highlighted"));
+        WidgetSprites sprites = new WidgetSprites(new ResourceLocation(PartialHearts.MOD_ID, "scroll_left"), new ResourceLocation(PartialHearts.MOD_ID, "scroll_left_highlighted"));
         this.addRenderableWidget(new ArrowButton(width / 2 - 6 * BUTTON_SIZE - 32, topOffset + 4 * BUTTON_SIZE - 16, 32, 32, sprites, b -> incrementSpriteIndex()));
 
-        sprites = new WidgetSprites(ResourceLocation.fromNamespaceAndPath(PartialHearts.MOD_ID, "scroll_right"), ResourceLocation.fromNamespaceAndPath(PartialHearts.MOD_ID, "scroll_right_highlighted"));
+        sprites = new WidgetSprites(new ResourceLocation(PartialHearts.MOD_ID, "scroll_right"), new ResourceLocation(PartialHearts.MOD_ID, "scroll_right_highlighted"));
         this.addRenderableWidget(new ArrowButton(width / 2 + 6 * BUTTON_SIZE, topOffset + 4 * BUTTON_SIZE - 16, 32, 32, sprites, b -> decrementSpriteIndex()));
 
         this.buttons = new ArrayList<>();
