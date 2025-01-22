@@ -148,7 +148,7 @@ public class PatternListScreen extends Screen {
 
     class PatternList extends ContainerObjectSelectionList<PatternEntry> {
         public PatternList(Minecraft minecraft, int width, int height, int y, int itemHeight) {
-            super(minecraft, width, height, y, itemHeight);
+            super(minecraft, width, height, y, y+height, itemHeight);
 
             addEntry(new PatternEntry(PatternManager.ORIGINAL_PATTERN, patterns.get(PatternManager.ORIGINAL_PATTERN), true));
             addEntry(new PatternEntry(PatternManager.RANDOM_PATTERN, patterns.get(PatternManager.RANDOM_PATTERN), true));

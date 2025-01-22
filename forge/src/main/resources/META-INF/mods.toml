@@ -1,5 +1,5 @@
 modLoader = "javafml"
-loaderVersion = "[1,)"
+loaderVersion = "[48,)"
 issueTrackerURL = "https://github.com/19Phin/Partial-Hearts"
 license = "MIT"
 
@@ -14,9 +14,9 @@ Exact health displayed with fractions of a heart.
 logoFile = "assets/partialhearts/icon.png"
 
 [[dependencies.partialhearts]]
-modId = "neoforge"
+modId = "forge"
 mandatory = true
-versionRange = "(20.1,20.3)"
+versionRange = "(47,49)"
 ordering = "NONE"
 side = "BOTH"
 
@@ -26,8 +26,3 @@ mandatory = true
 versionRange = "(1.20.1,1.20.3)"
 ordering = "NONE"
 side = "BOTH"
-
-[[mixins]]
-config = "partialhearts.mixins.json"
-[[mixins]]
-config = "partialhearts.neo.mixins.json"

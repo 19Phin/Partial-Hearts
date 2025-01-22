@@ -6,7 +6,6 @@
   "client": [
     "ColoredHeartsSupplierMixin",
     "ColorfulHeartRendererMixin",
-    "ColorfulHeartUtilsMixin",
     "ColorfulSpriteHeartDrawingMixin",
     "GuiMixin",
     "HeartAccessor",
