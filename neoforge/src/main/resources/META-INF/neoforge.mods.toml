@@ -1,6 +1,6 @@
 modLoader = "javafml"
 loaderVersion = "[3,)"
-issueTrackerURL = "https://github.com/19Phin/Grafted-Creaking/issues"
+issueTrackerURL = "https://github.com/19Phin/Partial-Hearts/issues"
 license = "MIT"
 
 [[mods]]
