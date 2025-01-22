@@ -1,6 +1,5 @@
 package net.dialingspoon.partialhearts.mixin;
 
-import com.llamalad7.mixinextras.sugar.Local;
 import com.mojang.blaze3d.platform.NativeImage;
 import net.dialingspoon.partialhearts.PartialHearts;
 import net.dialingspoon.partialhearts.PatternManager;
