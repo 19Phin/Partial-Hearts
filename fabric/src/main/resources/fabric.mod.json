@@ -13,7 +13,7 @@
   },
   "license": "MIT",
   "icon": "assets/partialhearts/icon.png",
-  "environment": "*",
+  "environment": "client",
   "entrypoints": {
     "client": [
       "net.dialingspoon.partialhearts.fabric.PartialHeartsFabric"
@@ -28,16 +28,15 @@
   ],
   "depends": {
     "fabricloader": ">=0.16.9",
-    "minecraft": ">1.20.4 <1.20.6",
-    "java": ">=21",
+    "minecraft": ">1.20.3 <1.20.5",
+    "java": ">=17",
     "fabric-api": "*"
   },
   "custom": {
     "modmenu": {
       "entrypoints": {
         "modmenu": [ "com.example.mod.ExampleModMenuApiImpl" ]
-      },
-      "badges": [ "clientsideOnly" ]
+      }
     }
   }
 }

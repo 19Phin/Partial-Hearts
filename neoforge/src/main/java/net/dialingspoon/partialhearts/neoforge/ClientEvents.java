@@ -6,13 +6,13 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.server.packs.resources.ReloadableResourceManager;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.SubscribeEvent;
-import net.neoforged.fml.common.EventBusSubscriber;
+import net.neoforged.fml.common.Mod;
 import net.neoforged.neoforge.client.event.InputEvent;
 import net.neoforged.neoforge.client.event.RegisterClientReloadListenersEvent;
 import net.neoforged.neoforge.client.event.RegisterKeyMappingsEvent;
 
 public class ClientEvents {
-    @EventBusSubscriber(modid = PartialHearts.MOD_ID, value = Dist.CLIENT)
+    @Mod.EventBusSubscriber(modid = PartialHearts.MOD_ID, value = Dist.CLIENT)
     public static class ClientNeoForgeEvents {
         @SubscribeEvent
         public static void onKey(InputEvent.Key event) {
@@ -22,7 +22,7 @@ public class ClientEvents {
         }
     }
 
-    @EventBusSubscriber(modid = PartialHearts.MOD_ID, value = Dist.CLIENT, bus = EventBusSubscriber.Bus.MOD)
+    @Mod.EventBusSubscriber(modid = PartialHearts.MOD_ID, value = Dist.CLIENT, bus = Mod.EventBusSubscriber.Bus.MOD)
     public static class ClientModBusEvents {
         @SubscribeEvent
         public static void initKeys(RegisterKeyMappingsEvent event) {
