@@ -13,7 +13,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
-@Mixin(targets = "terrails.colorfulhearts.render.atlas.sources.ColoredHearts$ColoredHeartsSupplier", remap = false)
+@Mixin(targets = "terrails.colorfulhearts.render.atlas.sources.ColoredHearts$ColoredHeartsSupplier")
 public abstract class ColoredHeartsSupplierMixin {
     @Shadow @Final private ResourceLocation spriteLocation;
 

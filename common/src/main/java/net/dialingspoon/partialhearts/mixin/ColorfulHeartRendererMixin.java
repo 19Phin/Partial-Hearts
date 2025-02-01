@@ -1,5 +1,7 @@
 package net.dialingspoon.partialhearts.mixin;
 
+import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
+import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import com.llamalad7.mixinextras.sugar.Local;
 import com.mojang.blaze3d.platform.NativeImage;
 import net.dialingspoon.partialhearts.PartialHearts;
@@ -16,11 +18,11 @@ import terrails.colorfulhearts.render.HeartRenderer;
 
 import java.io.IOException;
 
-@Mixin(value = HeartRenderer.class, remap = false)
+@Mixin(value = HeartRenderer.class)
 public abstract class ColorfulHeartRendererMixin {
 
-    @Redirect(method = "renderPlayerHearts", at = @At(value = "INVOKE", target = "Lterrails/colorfulhearts/api/heart/drawing/Heart;draw(Lnet/minecraft/client/gui/GuiGraphics;IIZZZ)V"))
-    private void renderPartialHeart(Heart heartInstance, GuiGraphics guiGraphics, int heartX, int heartY, boolean hardcore, boolean highlightContainer, boolean highlightHeart, @Local(name = "player") Player player,
+    @WrapOperation(method = "renderPlayerHearts", at = @At(value = "INVOKE", target = "Lterrails/colorfulhearts/api/heart/drawing/Heart;draw(Lnet/minecraft/client/gui/GuiGraphics;IIZZZ)V"))
+    private void renderPartialHeart(Heart heartInstance, GuiGraphics guiGraphics, int heartX, int heartY, boolean hardcore, boolean highlightContainer, boolean highlightHeart, Operation<Void> original, @Local(name = "player") Player player,
                                     @Local(name = "currentHealth") int currentHealth, @Local(name = "absorption") int absorption, @Local(name = "healthHearts") int healthHearts, @Local(name = "index") int index) {
         int lastHeart = Mth.ceil((currentHealth % 20) / 2.0) - 1;
         if (lastHeart == -1 && healthHearts > 0) lastHeart = 9;
@@ -49,7 +51,7 @@ public abstract class ColorfulHeartRendererMixin {
             }
 
         } else {
-            heartInstance.draw(guiGraphics, heartX, heartY, hardcore, highlightContainer, highlightHeart);
+            original.call(heartInstance, guiGraphics, heartX, heartY, hardcore, highlightContainer, highlightHeart);
         }
     }
 
