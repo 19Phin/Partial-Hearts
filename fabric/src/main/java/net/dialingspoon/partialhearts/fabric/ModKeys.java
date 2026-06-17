@@ -17,7 +17,7 @@ public class ModKeys {
         KeyMappingHelper.registerKeyMapping(PARTIALHEARTS_MENU);
         ClientTickEvents.END_CLIENT_TICK.register(minecraft -> {
             while (ModKeys.PARTIALHEARTS_MENU.consumeClick()) {
-                Minecraft.getInstance().setScreen(new PatternListScreen(null));
+                Minecraft.getInstance().gui.setScreen(new PatternListScreen(null));
             }
         });
     }

@@ -17,7 +17,7 @@ public class ClientEvents {
         @SubscribeEvent
         public static void onKey(InputEvent.Key event) {
             if (ModKeys.PARTIALHEARTS_MENU.consumeClick()) {
-                Minecraft.getInstance().setScreen(new PatternListScreen(null));
+                Minecraft.getInstance().gui.setScreen(new PatternListScreen(null));
             }
         }
 

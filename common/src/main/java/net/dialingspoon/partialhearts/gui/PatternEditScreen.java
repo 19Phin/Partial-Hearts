@@ -1,8 +1,8 @@
 package net.dialingspoon.partialhearts.gui;
 
 import net.dialingspoon.partialhearts.PartialHearts;
-import net.minecraft.client.gui.Gui;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
+import net.minecraft.client.gui.Hud;
 import net.minecraft.client.gui.components.*;
 import net.minecraft.client.gui.narration.NarratedElementType;
 import net.minecraft.client.gui.narration.NarrationElementOutput;
@@ -29,7 +29,7 @@ public class PatternEditScreen extends Screen {
 
     private final int[] oldData;
 
-    private final List<Gui.HeartType> backgroundSprites = new ArrayList<>();
+    private final List<Hud.HeartType> backgroundSprites = new ArrayList<>();
     private int spriteIndex = 0;
 
     private EditBox nameField;
@@ -98,8 +98,8 @@ public class PatternEditScreen extends Screen {
             }
         }
 
-        for (Gui.HeartType type : Gui.HeartType.values()) {
-            if (type != Gui.HeartType.CONTAINER) {
+        for (Hud.HeartType type : Hud.HeartType.values()) {
+            if (type != Hud.HeartType.CONTAINER) {
                 if (!backgroundSprites.contains(type)) backgroundSprites.add(type);
             }
         }
@@ -176,13 +176,13 @@ public class PatternEditScreen extends Screen {
 
         parent.onPatternSaved(oldName, newName, values);
 
-        this.minecraft.setScreen(parent);
+        this.minecraft.gui.setScreen(parent);
     }
 
     @Override
     public void onClose() {
         parent.onPatternEditCanceled();
-        this.minecraft.setScreen(parent);
+        this.minecraft.gui.setScreen(parent);
     }
 
     @Override
@@ -281,7 +281,7 @@ public class PatternEditScreen extends Screen {
 
     @Override
     public void extractRenderState(final GuiGraphicsExtractor graphics, final int mouseX, final int mouseY, final float a) {
-        Gui.HeartType heartType = backgroundSprites.get(spriteIndex / 4);
+        Hud.HeartType heartType = backgroundSprites.get(spriteIndex / 4);
         boolean hardcore = ((spriteIndex) / 2) % 2 == 1;
         boolean blinking = (spriteIndex % 2) == 1;
         graphics.blitSprite(RenderPipelines.GUI_TEXTURED, heartType.getSprite(hardcore, false, blinking), leftOffset, topOffset, GRID_SIZE*BUTTON_SIZE, GRID_SIZE*BUTTON_SIZE);

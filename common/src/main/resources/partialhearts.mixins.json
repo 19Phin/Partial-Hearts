@@ -5,7 +5,7 @@
   "minVersion": "0.8",
   "client": [
     "GuiGraphicsMixin",
-    "GuiMixin",
+    "HudMixin",
     "GuiRendererMixin"
   ],
   "injectors": {

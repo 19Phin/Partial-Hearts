@@ -6,7 +6,7 @@ import com.mojang.blaze3d.buffers.GpuBufferSlice;
 import net.dialingspoon.partialhearts.rendering.DynamicCustomUniforms;
 import net.dialingspoon.partialhearts.rendering.HeartMaskRenderState;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.Gui;
+import net.minecraft.client.gui.Hud;
 import net.minecraft.client.renderer.texture.SpriteContents;
 import net.minecraft.client.renderer.texture.TextureAtlas;
 import net.minecraft.data.AtlasIds;
@@ -162,8 +162,8 @@ public class PatternManager {
     public static void onResourceManagerReload() {
         ArrayList<Identifier> hearts = new ArrayList<>();
 
-        for(Gui.HeartType heartType : Gui.HeartType.values()) {
-            if (heartType != Gui.HeartType.CONTAINER) {
+        for(Hud.HeartType heartType : Hud.HeartType.values()) {
+            if (heartType != Hud.HeartType.CONTAINER) {
                 hearts.add(heartType.getSprite(false, false, false));
                 hearts.add(heartType.getSprite(true, false, false));
                 hearts.add(heartType.getSprite(false, false, true));

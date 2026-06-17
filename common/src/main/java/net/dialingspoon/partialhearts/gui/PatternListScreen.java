@@ -2,11 +2,10 @@ package net.dialingspoon.partialhearts.gui;
 
 import com.google.common.collect.ImmutableList;
 import net.dialingspoon.partialhearts.PatternManager;
-import net.minecraft.client.gui.GuiGraphicsExtractor;
-import net.minecraft.util.Util;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
-import net.minecraft.client.gui.Gui;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
+import net.minecraft.client.gui.Hud;
 import net.minecraft.client.gui.components.AbstractWidget;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.components.ContainerObjectSelectionList;
@@ -21,6 +20,7 @@ import net.minecraft.network.chat.CommonComponents;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.Identifier;
 import net.minecraft.util.Mth;
+import net.minecraft.util.Util;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.*;
@@ -48,7 +48,7 @@ public class PatternListScreen extends Screen {
         this.addRenderableWidget(this.patternList);
 
         int buttonY = this.height - 26;
-        Button newButton = Button.builder(Component.translatable("patternlist.new"), b -> this.minecraft.setScreen(new PatternEditScreen(this)))
+        Button newButton = Button.builder(Component.translatable("patternlist.new"), b -> this.minecraft.gui.setScreen(new PatternEditScreen(this)))
                 .pos(this.width / 2 - 100, buttonY)
                 .size(60, 20)
                 .build();
@@ -83,7 +83,7 @@ public class PatternListScreen extends Screen {
     @Override
     public void onClose() {
         PatternManager.savePatterns(patterns, selectedPatternName, patterns.get(selectedPatternName));
-        this.minecraft.setScreen(parent);
+        this.minecraft.gui.setScreen(parent);
     }
 
     public void onPatternSaved(String oldName, String newName, int[] newData) {
@@ -222,9 +222,9 @@ public class PatternListScreen extends Screen {
             int rowWidth = this.getContentWidth();
 
             PatternManager.setSelectedPattern(patterns.get(name));
-            graphics.blitSprite(RenderPipelines.GUI_TEXTURED, Gui.HeartType.CONTAINER.getSprite(false, false, false), left - 20, top + 7, 18, 18);
+            graphics.blitSprite(RenderPipelines.GUI_TEXTURED, Hud.HeartType.CONTAINER.getSprite(false, false, false), left - 20, top + 7, 18, 18);
             PatternManager.health = 2 - (((float) ((Util.getMillis() - initTime)) / 500) % 20) / 10;
-            graphics.blitSprite(RenderPipelines.GUI_TEXTURED, Gui.HeartType.NORMAL.getSprite(false, false, false), left - 20, top + 7, 18, 18);
+            graphics.blitSprite(RenderPipelines.GUI_TEXTURED, Hud.HeartType.NORMAL.getSprite(false, false, false), left - 20, top + 7, 18, 18);
 
             left += 5;
             drawScrollableText(graphics, font, Component.literal(name), left, top + 5, 160, 20, 0xFFFFFFFF);
@@ -289,7 +289,7 @@ public class PatternListScreen extends Screen {
         }
 
         private void onEdit() {
-            minecraft.setScreen(new PatternEditScreen(PatternListScreen.this, name, data));
+            minecraft.gui.setScreen(new PatternEditScreen(PatternListScreen.this, name, data));
         }
 
         private void onDuplicate() {

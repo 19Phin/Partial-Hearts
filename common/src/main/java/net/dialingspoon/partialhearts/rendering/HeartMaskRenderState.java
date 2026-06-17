@@ -6,11 +6,11 @@ import com.mojang.blaze3d.vertex.VertexConsumer;
 import net.dialingspoon.partialhearts.PatternManager;
 import net.minecraft.client.gui.navigation.ScreenRectangle;
 import net.minecraft.client.gui.render.TextureSetup;
+import net.minecraft.client.renderer.DynamicUniformStorage;
 import net.minecraft.client.renderer.state.gui.BlitRenderState;
 import net.minecraft.client.renderer.state.gui.GuiElementRenderState;
-import net.minecraft.client.renderer.DynamicUniformStorage;
 import org.jetbrains.annotations.Nullable;
-import org.joml.Matrix3x2f;
+import org.joml.Matrix3x2fc;
 import org.joml.Vector2f;
 import org.joml.Vector3i;
 
@@ -20,7 +20,7 @@ public record HeartMaskRenderState(
         Vector3i maskBits,
         RenderPipeline pipeline,
         TextureSetup textureSetup,
-        Matrix3x2f pose,
+        Matrix3x2fc pose,
         int x0,
         int y0,
         int x1,

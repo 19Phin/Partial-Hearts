@@ -4,12 +4,10 @@ import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import com.llamalad7.mixinextras.sugar.Local;
-import com.mojang.blaze3d.buffers.GpuBuffer;
 import com.mojang.blaze3d.buffers.GpuBufferSlice;
 import com.mojang.blaze3d.pipeline.RenderPipeline;
 import com.mojang.blaze3d.pipeline.RenderTarget;
 import com.mojang.blaze3d.systems.RenderPass;
-import com.mojang.blaze3d.vertex.VertexFormat;
 import net.dialingspoon.partialhearts.PartialHearts;
 import net.dialingspoon.partialhearts.PatternManager;
 import net.dialingspoon.partialhearts.rendering.HeartMaskRenderState;
@@ -32,7 +30,7 @@ public abstract class GuiRendererMixin {
     Queue<GpuBufferSlice> uniformSliceQueue = new ArrayDeque<>();
 
     @Inject(method = "executeDrawRange", at = @At(value = "HEAD"))
-    private void uploadUniforms(Supplier<String> supplier, RenderTarget renderTarget, GpuBufferSlice gpuBufferSlice, GpuBufferSlice gpuBufferSlice2, GpuBuffer gpuBuffer, VertexFormat.IndexType indexType, int i, int j, CallbackInfo ci) {
+    private void uploadUniforms(Supplier<String> label, RenderTarget mainRenderTarget, GpuBufferSlice dynamicTransforms, int startIndex, int endIndex, CallbackInfo ci) {
         uniformSliceQueue.addAll(PatternManager.getUniformSlices());
     }
 

@@ -1,8 +1,8 @@
-package net.dialingspoon.partialhearts.neoforge.mixin;
+package net.dialingspoon.partialhearts.fabric.mixin;
 
 import net.dialingspoon.partialhearts.PatternManager;
-import net.minecraft.client.gui.Gui;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
+import net.minecraft.client.gui.Hud;
 import net.minecraft.world.entity.player.Player;
 import org.jetbrains.annotations.Nullable;
 import org.objectweb.asm.Opcodes;
@@ -12,12 +12,12 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-@Mixin(Gui.class)
-public abstract class GuiMixin {
+@Mixin(Hud.class)
+public abstract class HudMixin {
     @Shadow @Nullable protected abstract Player getCameraPlayer();
 
-    @Inject(method = "extractHealthLevel", at = @At(value = "FIELD", target = "Lnet/minecraft/client/gui/Gui;displayHealth:I", opcode = Opcodes.PUTFIELD))
-    private void recordDisplayHealth(GuiGraphicsExtractor graphics, CallbackInfo ci) {
+    @Inject(method = "extractPlayerHealth", at = @At(value = "FIELD", target = "Lnet/minecraft/client/gui/Hud;displayHealth:I", opcode = Opcodes.PUTFIELD))
+    private void recordDisplayHealth(GuiGraphicsExtractor guiGraphics, CallbackInfo ci) {
         PatternManager.displayHealthFloat = getCameraPlayer().getHealth();
     }
 }
